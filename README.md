@@ -33,4 +33,4 @@ A **mobile-friendly**, lightweight web application built to help individuals tra
 
 ## 📦 Getting Started
 
-![My Awesome Website Demo](https://abyssdrn.github.io/Skill-Tracker-App/)
+You can try the live demo here: [https://abyssdrn.github.io/Skill-Tracker-App/](https://abyssdrn.github.io/Skill-Tracker-App/)
