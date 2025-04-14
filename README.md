@@ -33,6 +33,4 @@ A **mobile-friendly**, lightweight web application built to help individuals tra
 
 ## 📦 Getting Started
 
-1. **Clone the Repository**
-   ```bash
-   git clone (https://abyssdrn.github.io/Skill-Tracker-App/)
+![My Awesome Website Demo](https://abyssdrn.github.io/Skill-Tracker-App/)
