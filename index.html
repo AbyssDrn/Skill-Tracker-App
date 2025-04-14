@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amal's Skill Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .dark-mode {
+      background-color: #1a202c;
+      color: #f7fafc;
+    }
+    .dark-mode .bg-white {
+      background-color: #2d3748;
+    }
+    .dark-mode .bg-gray-100 {
+      background-color: #4a5568;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 p-4 transition-colors duration-300" id="body">
+  <div class="max-w-md mx-auto bg-white rounded-2xl shadow-md p-6">
+    <h1 class="text-2xl font-bold mb-4 text-center">Skill Tracker</h1>
+
+    <div class="flex justify-between mb-4">
+      <button onclick="toggleDarkMode()" class="bg-gray-800 text-white px-3 py-1 rounded-md">Toggle Dark Mode</button>
+      <button onclick="showStats()" class="bg-green-600 text-white px-3 py-1 rounded-md">Show Weekly Stats</button>
+    </div>
+
+    <form id="skillForm" class="flex mb-4">
+      <input type="text" id="newSkill" placeholder="Add a new skill" class="flex-grow border p-2 rounded-l-md" />
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-r-md">Add</button>
+    </form>
+
+    <ul id="skillList" class="space-y-2"></ul>
+
+    <button onclick="resetProgress()" class="mt-6 w-full bg-red-500 text-white py-2 rounded-md">Reset Today's Progress</button>
+
+    <div id="statsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div class="bg-white dark-mode p-4 rounded-xl w-80 max-w-full">
+        <h2 class="text-lg font-semibold mb-2">Weekly Progress</h2>
+        <ul id="weeklyStats" class="list-disc list-inside"></ul>
+        <button onclick="closeStats()" class="mt-4 w-full bg-blue-600 text-white py-1 rounded">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const skillForm = document.getElementById('skillForm');
+    const newSkill = document.getElementById('newSkill');
+    const skillList = document.getElementById('skillList');
+    const body = document.getElementById('body');
+    const statsModal = document.getElementById('statsModal');
+    const weeklyStats = document.getElementById('weeklyStats');
+
+    let skills = JSON.parse(localStorage.getItem('skills')) || [
+      'Dance', 'Python', 'C++', 'Machine Learning', 'SSB Interview Prep',
+      'Communication Skills', 'Reading / GK / Current Affairs', 'Web Development', 'Fitness / Workout'
+    ];
+
+    let progress = JSON.parse(localStorage.getItem('progress')) || {};
+    let notes = JSON.parse(localStorage.getItem('notes')) || {};
+    let history = JSON.parse(localStorage.getItem('history')) || {};
+
+    function saveToStorage() {
+      localStorage.setItem('skills', JSON.stringify(skills));
+      localStorage.setItem('progress', JSON.stringify(progress));
+      localStorage.setItem('notes', JSON.stringify(notes));
+      localStorage.setItem('history', JSON.stringify(history));
+    }
+
+    function renderSkills() {
+      skillList.innerHTML = '';
+      skills.forEach((skill, index) => {
+        const li = document.createElement('li');
+        li.className = 'flex flex-col bg-gray-100 p-2 rounded-md';
+
+        const topRow = document.createElement('div');
+        topRow.className = 'flex justify-between items-center';
+
+        const label = document.createElement('label');
+        label.className = 'flex items-center gap-2';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = progress[skill] || false;
+        checkbox.onchange = () => {
+          progress[skill] = checkbox.checked;
+          updateHistory(skill, checkbox.checked);
+          saveToStorage();
+        };
+
+        const span = document.createElement('span');
+        span.textContent = skill;
+
+        label.appendChild(checkbox);
+        label.appendChild(span);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '✕';
+        deleteBtn.className = 'text-red-500';
+        deleteBtn.onclick = () => {
+          skills.splice(index, 1);
+          delete progress[skill];
+          delete notes[skill];
+          delete history[skill];
+          saveToStorage();
+          renderSkills();
+        };
+
+        topRow.appendChild(label);
+        topRow.appendChild(deleteBtn);
+
+        const noteArea = document.createElement('textarea');
+        noteArea.placeholder = 'Notes...';
+        noteArea.className = 'w-full mt-2 p-1 border rounded-md text-sm';
+        noteArea.value = notes[skill] || '';
+        noteArea.onchange = () => {
+          notes[skill] = noteArea.value;
+          saveToStorage();
+        };
+
+        li.appendChild(topRow);
+        li.appendChild(noteArea);
+        skillList.appendChild(li);
+      });
+    }
+
+    skillForm.onsubmit = e => {
+      e.preventDefault();
+      const skill = newSkill.value.trim();
+      if (skill && !skills.includes(skill)) {
+        skills.push(skill);
+        progress[skill] = false;
+        history[skill] = [];
+        notes[skill] = '';
+        saveToStorage();
+        newSkill.value = '';
+        renderSkills();
+      }
+    };
+
+    function resetProgress() {
+      for (let skill of skills) {
+        progress[skill] = false;
+      }
+      saveToStorage();
+      renderSkills();
+    }
+
+    function toggleDarkMode() {
+      body.classList.toggle('dark-mode');
+    }
+
+    function updateHistory(skill, status) {
+      const today = new Date().toISOString().split('T')[0];
+      history[skill] = history[skill] || [];
+      const todayEntry = history[skill].find(entry => entry.date === today);
+      if (!todayEntry && status) {
+        history[skill].push({ date: today, done: true });
+      }
+    }
+
+    function showStats() {
+      weeklyStats.innerHTML = '';
+      const today = new Date();
+      skills.forEach(skill => {
+        const entries = (history[skill] || []).filter(entry => {
+          const entryDate = new Date(entry.date);
+          return (today - entryDate) / (1000 * 60 * 60 * 24) < 7;
+        });
+        const count = entries.length;
+        const li = document.createElement('li');
+        li.textContent = `${skill}: ${count} day(s)`;
+        weeklyStats.appendChild(li);
+      });
+      statsModal.classList.remove('hidden');
+    }
+
+    function closeStats() {
+      statsModal.classList.add('hidden');
+    }
+
+    renderSkills();
+  </script>
+</body>
+</html>
