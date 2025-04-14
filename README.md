@@ -1,32 +1,38 @@
-# Skill Tracker Web App 🧠📈
+# 💡 Amal's Skill Tracker Web App
 
-A **mobile-friendly productivity app** built to help you stay consistent and track your progress in learning and developing new skills — whether it's **dance, coding, fitness, SSB prep**, or anything else you're passionate about.
+A **mobile-friendly**, lightweight web application built to help individuals track their daily progress across multiple skills like dance, programming, fitness, and more. This project is especially helpful for learners, SSB aspirants, or anyone aiming to maintain a consistent practice schedule.
 
----
+## 🚀 Features
 
-## 🔥 Features
+- ✅ **Add & Track Skills**  
+  Add any number of skills and mark them daily as complete.
 
-- ✅ **Add & Track Skills**: Manage a personal list of skills you want to practice daily.
-- 📆 **Weekly Stats**: View your 7-day history and check how consistent you’ve been.
-- 📝 **Skill Notes**: Log your practice thoughts or observations for each skill every day.
-- 🌙 **Dark Mode Toggle**: Easily switch between light and dark themes for comfort.
-- 🔁 **Daily Reset**: Resets progress every day to encourage fresh starts.
+- 📒 **Skill Notes Section**  
+  Write thoughts, reflections, or learning notes under each skill.
 
----
+- 📈 **Weekly Progress Stats**  
+  Visualize how many days you've practiced each skill in the last 7 days.
 
-## 💻 Technologies Used
+- 🌙 **Dark Mode Toggle**  
+  Easy toggle between light and dark modes for a personalized look.
 
-| Tool | Purpose |
-|------|---------|
-| **HTML5** | Structure of the app |
-| **Tailwind CSS** | Styling and responsive design |
-| **Vanilla JavaScript** | Functionality and interactivity |
-| **LocalStorage API** | Save user progress directly in the browser |
+- ♻️ **Reset Daily Progress**  
+  Clear progress with one click every day to start fresh.
 
----
+- 💾 **Offline Support with localStorage**  
+  All data is saved in your browser — no server or login required.
 
-## 🚀 Getting Started
+## 🛠 Technologies Used
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/your-username/skill-tracker-app.git
+| Tool / Technology     | Purpose                             |
+|-----------------------|-------------------------------------|
+| HTML5                 | Structure & Markup                  |
+| Tailwind CSS          | Responsive and elegant styling      |
+| JavaScript (Vanilla)  | Core logic and interactivity        |
+| localStorage          | Client-side data persistence        |
+
+## 📦 Getting Started
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/your-username/skill-tracker-app.git
