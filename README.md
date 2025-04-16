@@ -51,7 +51,3 @@ A simple, mobile-friendly web app to help you **track daily progress** in skills
 ## 🙌 Connect
 
 - [LinkedIn](https://www.linkedin.com/in/amal-madhu-48042a20a/)
-
----
-
-Would you like to know more about "cloning a repo"? Feel free to ask!
