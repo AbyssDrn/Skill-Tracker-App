@@ -1,0 +1,88 @@
+/* Custom style.css for Amal's Skill Tracker */
+
+/* Smooth transitions */
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Light Theme (Default) */
+body.light-mode {
+  background-color: #f7fafc;
+  color: #2d3748;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background-color: #1a202c;
+  color: #f7fafc;
+}
+body.dark-mode .bg-white {
+  background-color: #2d3748;
+}
+body.dark-mode .text-gray-700 {
+  color: #e2e8f0;
+}
+body.dark-mode .text-gray-800 {
+  color: #edf2f7;
+}
+body.dark-mode .bg-gray-100 {
+  background-color: #2d3748;
+}
+body.dark-mode .bg-gray-700 {
+  background-color: #4a5568;
+}
+
+/* Button hover transitions */
+button:hover {
+  transform: scale(1.02);
+}
+
+/* Custom themes */
+body.blue-theme {
+  background-color: #ebf8ff;
+  color: #2a4365;
+}
+body.blue-theme .bg-white {
+  background-color: #bee3f8;
+}
+
+body.green-theme {
+  background-color: #f0fff4;
+  color: #22543d;
+}
+body.green-theme .bg-white {
+  background-color: #c6f6d5;
+}
+
+/* Modal overlay enhancements */
+#statsModal.show,
+#themeMenu.show {
+  display: flex !important;
+}
+
+/* Hide scrollbars in modals */
+#statsModal::-webkit-scrollbar,
+#themeMenu::-webkit-scrollbar {
+  display: none;
+}
+
+/* Rounded buttons */
+button {
+  border-radius: 0.75rem;
+}
+
+/* Category filter styling */
+#categoryFilter {
+  background-color: #fff;
+  border: 1px solid #cbd5e0;
+}
+
+/* List item animation */
+#skillList li {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
