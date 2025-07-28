@@ -19,7 +19,7 @@ A simple, mobile-friendly web app to help you **track daily progress** in skills
 
 ## 🛠 Technologies
 
-- **HTML5**: Structure & Markup
+- **HTML**: Structure & Markup
 - **Tailwind CSS**: Styling & Responsiveness
 - **JavaScript**: App Logic
 - **Chart.js**: Progress Visualization
